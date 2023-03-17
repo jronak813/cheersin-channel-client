@@ -1,0 +1,49 @@
+{
+  "name": "@botpress/messaging-client",
+  "version": "1.1.9",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:botpress/messaging.git"
+  },
+  "description": "An http client to interact with the botpress Messaging Server",
+  "keywords": [
+    "botpress",
+    "messaging",
+    "api",
+    "channel",
+    "messenger",
+    "slack",
+    "smooch",
+    "teams",
+    "telegram",
+    "twilio",
+    "vonage"
+  ],
+  "homepage": "https://botpress.com/docs",
+  "scripts": {
+    "build": "yarn && yarn run -T tsc --build",
+    "watch": "yarn && yarn run -T tsc --build --watch",
+    "prepublish": "yarn run -T rimraf dist && yarn --immutable && yarn run -T tsc --build && yarn run -T rimraf dist/.tsbuildinfo"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/cookie": "^0.4.1",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.4.0",
+    "@types/node": "^16.11.13",
+    "@types/uuid": "^8.3.4",
+    "uuid": "^8.3.2"
+  },
+  "dependencies": {
+    "@botpress/messaging-base": "1.1.1",
+    "axios": "^0.21.4",
+    "cookie": "^0.4.2",
+    "joi": "^17.6.0"
+  }
+}

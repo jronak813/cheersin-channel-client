@@ -1,0 +1,73 @@
+{
+  "name": "@botpress/messaging-components",
+  "version": "0.3.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.tsx",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "build": "yarn && yarn run -T tsc --build",
+    "watch": "yarn && yarn run -T tsc --build --watch",
+    "storybook": "start-storybook -p 6006 -c story/config",
+    "build-storybook": "build-storybook -c story/config",
+    "prepublish": "yarn run -T rimraf dist && yarn --immutable && yarn run -T tsc --build && yarn run -T rimraf dist/.tsbuildinfo && yarn run ncp ./src/css ./dist/css"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@googlemaps/react-wrapper": "^1.1.26",
+    "html-truncate": "^1.2.2",
+    "mime": "^2.5.2",
+    "react-intl": "^3.12.1",
+    "react-linkify": "^0.2.2",
+    "react-select": "^5.2.1",
+    "react-slick": "^0.28.1",
+    "react-text-format": "^2.0.28",
+    "snarkdown": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.12",
+    "@storybook/addon-essentials": "^6.4.17",
+    "@storybook/addon-links": "^6.4.17",
+    "@storybook/addon-measure": "^6.4.17",
+    "@storybook/components": "^6.4.17",
+    "@storybook/core-events": "^6.4.17",
+    "@storybook/react": "^6.4.17",
+    "@storybook/theming": "^6.4.17",
+    "@testing-library/dom": "^8.11.3",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/dom-mediacapture-record": "^1.0.11",
+    "@types/google.maps": "^3.48.2",
+    "@types/html-truncate": "^1.2.2",
+    "@types/jest": "^27.4.0",
+    "@types/mime": "^2.0.3",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "@types/react-slick": "^0.23.8",
+    "@types/testing-library__jest-dom": "^5.14.2",
+    "axios": "^0.25.0",
+    "jest-css-modules-transform": "^4.3.0",
+    "ncp": "^2.0.0",
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-test-renderer": "^17.0.2"
+  },
+  "peerDependencies": {
+    "@googlemaps/react-wrapper": "^1.1.26",
+    "html-truncate": "^1.2.2",
+    "mime": "^2.5.2",
+    "prop-types": "^15.7.2",
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0",
+    "react-intl": ">=3.0.0",
+    "react-linkify": "^0.2.2",
+    "react-select": "^5.2.1",
+    "react-slick": ">=0.24.0",
+    "react-text-format": "^2.0.28",
+    "snarkdown": "^2.0.0"
+  }
+}

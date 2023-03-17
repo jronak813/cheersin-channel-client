@@ -1,0 +1,337 @@
+@baseUrl = http://localhost:3100
+// @baseUrl =  https://messaging.botpress.dev/
+@adminKey = ADMIN_KEY
+@clientId = YOUR_CLIENT_ID
+@clientToken = YOUR_TOKEN
+@userId = YOUR_USER_ID
+@convoId = YOUR_CONVO_ID
+
+### Auth messaging cloud
+# @name auth
+POST https://oauth.botpress.dev/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=CLOUD_CLIENT
+&client_secret=CLOUD_SERCRET
+&grant_type=client_credentials
+
+###
+@authToken = {{auth.response.body.access_token}}
+
+### Create client
+POST {{baseUrl}}/api/v1/admin/clients
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+x-bp-messaging-admin-key: {{adminKey}}
+
+{
+  // "id": "customid"
+}
+
+### Sync client
+POST {{baseUrl}}/api/v1/admin/clients/sync
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+x-bp-messaging-admin-key: {{adminKey}}
+
+{
+  "name": "my-bot-name",
+  "id": null,
+  "token": null
+}
+
+### Sync
+POST {{baseUrl}}/api/v1/sync
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+
+{
+  "channels": {
+    "telegram": {
+      "version": "1.0.0",
+      "botToken": "my-telegram-token"
+    }
+  },
+  "webhooks": [{"url": "https://mywebsite.com/mycallbackurl"}]
+}
+
+### Health
+GET {{baseUrl}}/api/v1/health
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+
+### Map Endpoint
+POST {{baseUrl}}/api/v1/endpoints/map
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+Content-Type: application/json
+
+{
+  "channel": {
+    "name": "telegram",
+    "version": "1.0.0"
+  },
+  "identity": "*",
+  "sender": "my-sender-id",
+  "thread": "my-thread-id"
+}
+
+### List Endpoints
+GET {{baseUrl}}/api/v1/endpoints/conversation/{{convoId}}
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+
+### Create User
+POST {{baseUrl}}/api/v1/users
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+
+### Create Conversation
+POST {{baseUrl}}/api/v1/conversations
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+Content-Type: application/json
+
+{
+  "userId": "{{userId}}"
+}
+
+### Send Text
+POST {{baseUrl}}/api/v1/messages
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+Content-Type: application/json
+
+{
+  "conversationId": "{{convoId}}",
+  "payload": {
+    "type": "text",
+    "text": "Hello this is a text message!"
+  }
+}
+
+### Converse
+POST {{baseUrl}}/api/v1/messages/collect
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+Content-Type: application/json
+
+{
+  "conversationId": "{{convoId}}",
+  "authorId": "{{userId}}",
+  "payload": {
+    "type": "text",
+    "text": "Hello this is a converse message!"
+  }
+}
+
+### Send Image
+POST {{baseUrl}}/api/v1/messages
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+Content-Type: application/json
+
+{
+  "conversationId": "{{convoId}}",
+  "payload": {
+    "type": "image",
+    "title": "ducky duck duck",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Mallard2.jpg"
+  }
+}
+
+### Send Video
+POST {{baseUrl}}/api/v1/messages
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+Content-Type: application/json
+
+{
+  "conversationId": "{{convoId}}",
+  "payload": {
+    "type": "video",
+    "title": "big buck bunny video",
+    "video": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+  }
+}
+
+### Send Audio
+POST {{baseUrl}}/api/v1/messages
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+Content-Type: application/json
+
+{
+  "conversationId": "{{convoId}}",
+  "payload": {
+    "type": "audio",
+    "title": "drum loop audio",
+    "audio": "https://sampleswap.org/samples-ghost/DRUM%20LOOPS%20and%20BREAKS/000%20to%20080%20bpm/827[kb]050_barbituate-beat.wav.mp3"
+  }
+}
+
+### Send Location
+POST {{baseUrl}}/api/v1/messages
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+Content-Type: application/json
+
+{
+  "conversationId": "{{convoId}}",
+  "payload": {
+    "type": "location",
+    "latitude": -25.363,
+    "longitude": 130.044,
+    "title": "Rocks",
+    "address": "Uluru (Ayers Rock)"
+  }
+}
+
+### Send Choices
+POST {{baseUrl}}/api/v1/messages
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+Content-Type: application/json
+
+{
+  "conversationId": "{{convoId}}",
+  "payload": {
+    "type": "single-choice",
+    "text": "Make a choice :",
+    "choices": [
+      { "title": "Yay", "value": "YES" },
+      { "title": "Nay", "value": "NO" }
+    ]
+  }
+}
+
+### Send Dropdown
+POST {{baseUrl}}/api/v1/messages
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+Content-Type: application/json
+
+{
+  "conversationId": "{{convoId}}",
+  "payload": {
+    "type": "dropdown",
+    "buttonText": "Send",
+    "message": "Dropdown choices:",
+    "options": [
+      { "label": "Yay", "value": "YES" },
+      { "label": "Nay", "value": "NO" }
+    ],
+    "displayInKeyboard": true
+  }
+}
+
+### Send Card
+POST {{baseUrl}}/api/v1/messages
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+Content-Type: application/json
+
+{
+  "conversationId": "{{convoId}}",
+  "payload": {
+    "type": "card",
+    "title": "A banana card",
+    "subtitle": "This is a banana",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg",
+    "actions": [
+      {
+        "action": "Open URL",
+        "title": "Learn more",
+        "url": "https://en.wikipedia.org/wiki/Banana"
+      },
+      {
+        "action": "Say something",
+        "title": "Say Banana!",
+        "text": "Banana!!!"
+      },
+      {
+        "action": "Postback",
+        "title": "Post banana",
+        "payload": "BANANA"
+      }
+    ]
+  }
+}
+
+### Send Carousel
+POST {{baseUrl}}/api/v1/messages
+Authorization: Bearer {{authToken}}
+x-bp-messaging-client-id: {{clientId}}
+x-bp-messaging-client-token: {{clientToken}}
+Content-Type: application/json
+
+{
+  "conversationId": "{{convoId}}",
+  "payload": {
+    "type": "carousel",
+    "items": [
+      {
+        "title": "Dinosaurs",
+        "subtitle": "A bunch of dinosaurs",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/2/28/Macronaria_scrubbed_enh.jpg",
+        "actions": [
+          {
+            "action": "Open URL",
+            "title": "Learn more",
+            "url": "https://en.wikipedia.org/wiki/Dinosaur"
+          },
+          {
+            "action": "Postback",
+            "title": "Cool",
+            "payload": "COOL"
+          }
+        ]
+      },
+      {
+        "title": "T-Rex",
+        "subtitle": "A big dinosaur",
+        "image": "https://d.newsweek.com/en/full/986534/gettyimages-967254666.jpg",
+        "actions": [
+          {
+            "action": "Say something",
+            "title": "Roar",
+            "text": "Woof woof"
+          }
+        ]
+      },
+      {
+        "title": "T-Bone",
+        "subtitle": "A big steak",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/9/91/T-bone-raw-MCB.jpg",
+        "actions": [
+          {
+            "action": "Open URL",
+            "title": "Learn more",
+            "url": "https://en.wikipedia.org/wiki/T-bone_steak"
+          },
+          {
+            "action": "Say something",
+            "title": "Miam",
+            "text": "Miam Miam"
+          }
+        ]
+      }
+    ]
+  }
+}

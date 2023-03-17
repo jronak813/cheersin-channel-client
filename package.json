@@ -1,0 +1,118 @@
+{
+  "name": "@jronak813/cheersin-channel-client",
+  "version": "0.0.1",
+  "description": "Cheersin messaging repo",
+  "author": "Cheersin, Inc.",
+  "license": "",
+  "repository": "https://github.com/jronak813/cheersin-channel-client.git",
+  "scripts": {
+    "eslint": "eslint packages/ --ext .ts",
+    "prettier": "prettier --check './packages/**/*.ts' '!**/*.d.ts'",
+    "clean": "mkdirp packages/base/dist && rimraf packages/*/dist bin test/.test-data",
+    "reset": "yarn clean && mkdirp packages/base/node_modules && rimraf .parcel-cache packages/*/node_modules node_modules .yarn/cache .yarn/install-state.gz .yarn/unplugged .pnp.cjs .pnp.loader.mjs",
+    "package": "yarn clean && yarn build && ts-node -T misc/scripts/package",
+    "build": "yarn workspace @botpress/messaging-server build",
+    "watch": "yarn workspace @botpress/messaging-server watch",
+    "start": "yarn workspace @botpress/messaging-server start",
+    "dev": "yarn workspace @botpress/messaging-server dev",
+    "board": "yarn workspace @botpress/messaging-board dev",
+    "channels": "yarn workspace @botpress/messaging-channels example",
+    "test": "yarn test:unit && yarn test:int && yarn test:mig && yarn test:e2e && yarn test:sec",
+    "test:unit": "jest -c ./test/jest.unit.config.ts",
+    "test:int": "jest -c ./test/jest.integration.config.ts",
+    "test:e2e": "jest -c ./test/jest.e2e.config.ts",
+    "test:sec": "jest -c ./test/jest.security.config.ts",
+    "test:mig": "jest -c ./test/jest.migration.config.ts",
+    "test:chat": "cross-env HEIGHT=1080 WIDTH=1920 cypress run",
+    "cypress:open": "cypress open"
+  },
+  "bin": "./packages/server/dist/index.js",
+  "pkg": {
+    "scripts": "./packages/server/dist/**/*.js",
+    "assets": [
+      "./node_modules/sqlite3/lib/binding/**/*",
+      "./node_modules/es-get-iterator/node.js"
+    ],
+    "targets": [
+      "node16-win32-x64",
+      "node16-linux-x64",
+      "node16-macos-x64"
+    ]
+  },
+  "devDependencies": {
+    "@jest/types": "^27.4.2",
+    "@parcel/config-default": "^2.2.1",
+    "@parcel/core": "^2.2.1",
+    "@parcel/packager-ts": "^2.2.1",
+    "@parcel/resolver-default": "^2.2.1",
+    "@parcel/transformer-babel": "^2.2.1",
+    "@parcel/transformer-css": "^2.2.1",
+    "@parcel/transformer-html": "^2.2.1",
+    "@parcel/transformer-js": "^2.2.1",
+    "@parcel/transformer-postcss": "^2.2.1",
+    "@parcel/transformer-posthtml": "^2.2.1",
+    "@parcel/transformer-react-refresh-wrap": "^2.2.1",
+    "@parcel/transformer-sass": "2.2.1",
+    "@parcel/transformer-typescript-tsc": "^2.2.1",
+    "@parcel/transformer-typescript-types": "^2.2.1",
+    "@types/conventional-changelog": "^3.1.1",
+    "@types/jest": "^27.4.0",
+    "@types/jest-dev-server": "^5.0.0",
+    "@types/node": "^16.11.13",
+    "@types/uuid": "^8.3.4",
+    "@types/yargs": "^17.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.10.2",
+    "@typescript-eslint/parser": "^5.10.2",
+    "conventional-changelog": "^3.1.25",
+    "copyfiles": "^2.4.1",
+    "cross-env": "^7.0.3",
+    "cypress": "^9.5.2",
+    "eslint": "^8.8.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-node": "^0.3.6",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsdoc": "37.7.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "jest": "^27.4.7",
+    "jest-dev-server": "^6.0.3",
+    "mkdirp": "^1.0.4",
+    "parcel": "^2.2.1",
+    "pkg": "5.2.0",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "27.1.2",
+    "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.5",
+    "uuid": "^8.3.2",
+    "yargs": "^17.3.1"
+  },
+  "private": false,
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": "16.13.2"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "alias": {
+    "@botpress/messaging-base": "@botpress/messaging-base/src",
+    "@botpress/messaging-client": "@botpress/messaging-client/src",
+    "@botpress/messaging-socket": "@botpress/messaging-socket/src",
+    "@botpress/messaging-components": "@botpress/messaging-components/src",
+    "@botpress/webchat": "@botpress/webchat/src",
+    "@botpress/chat": "@botpress/chat/src",
+    "@botpress/chat-skin": "@botpress/chat-skin/src"
+  },
+  "dependenciesMeta": {
+    "core-js@3.20.0": {
+      "built": false
+    },
+    "core-js-pure@3.20.0": {
+      "built": false
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "name": "@botpress/webchat",
+  "version": "0.3.4",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.tsx",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "build": "yarn && yarn run -T tsc --build",
+    "watch": "yarn && yarn run -T tsc --build --watch",
+    "dev": "yarn run -T parcel test/index.html",
+    "copy:scss": "yarn run -T copyfiles -u 1 ./src/**/*.scss dist",
+    "prepublish": "yarn run -T rimraf dist && yarn --immutable && yarn run -T tsc --build && yarn run -T rimraf dist/.tsbuildinfo && yarn copy:scss"
+  },
+  "files": [
+    "dist",
+    "assets"
+  ],
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
+    "@types/js-cookie": "^3.0.1",
+    "@types/lodash": "^4.14.178",
+    "@types/mime": "^2.0.3",
+    "@types/node": "^16.11.13",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "@types/uuid": "^8.3.4",
+    "prop-types": "^15.8.1"
+  },
+  "dependencies": {
+    "@blueprintjs/core": "^3.23.1",
+    "@botpress/messaging-components": "0.3.0",
+    "@botpress/messaging-socket": "1.1.1",
+    "@formatjs/intl-pluralrules": "^4.1.6",
+    "@formatjs/intl-utils": "^3.8.4",
+    "@juggle/resize-observer": "^3.0.2",
+    "axios": "^0.25.0",
+    "classnames": "^2.3.1",
+    "crypto-js": "^4.1.1",
+    "date-fns": "^1.30.1",
+    "js-cookie": "^3.0.1",
+    "lodash": "^4.17.21",
+    "mime": "^3.0.0",
+    "mobx": "5.15.7",
+    "mobx-react": "^6.2.1",
+    "query-string": "^7.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-ga": "^2.7.0",
+    "react-intl": "^3.12.1",
+    "snarkdown": "^2.0.0",
+    "uuid": "^8.3.2"
+  }
+}

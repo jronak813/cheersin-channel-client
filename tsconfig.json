@@ -1,0 +1,15 @@
+{
+  "references": [
+    {
+      "path": "./packages/server"
+    }
+  ],
+  "files": [],
+  "include": [],
+  "exclude": ["node_modules", "**/node_modules"],
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true
+  }
+}
